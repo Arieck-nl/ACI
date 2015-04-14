@@ -2,12 +2,22 @@
 require_once '../init.php';
 
 use Ivory\JsonBuilder\JsonBuilder;
+use Apis\Thesaurus;
 
 $builder = new JsonBuilder();
+$Api_Thesaurus = new Thesaurus();
 
 
 $action = $_GET['action'];
 $post = filter_var_array($_POST);
+
+$links = $Api_Thesaurus->get_link_array($post['keyword']);
+
+echo '<div style="color:#000; background-color:white"><pre>';
+print_r($links);
+echo '</pre>';
+die();
+
 
 
 switch ($action) {

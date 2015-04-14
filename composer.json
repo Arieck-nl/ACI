@@ -1,0 +1,5 @@
+{
+  "require": {
+    "egeloen/json-builder": "2.0.*@dev"
+  }
+}

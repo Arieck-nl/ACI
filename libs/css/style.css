@@ -1,0 +1,21 @@
+body,html {
+    height: 100%;
+}
+
+#overlay{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    display: table;
+}
+
+/* keyword form */
+#keyword-form{
+    margin: 0 auto;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#submit{
+    display: none;
+}

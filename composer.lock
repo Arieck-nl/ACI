@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c102c8b7957638030083276482b22ff1",
+    "hash": "c644d1294acaa59e99842aec610c19c9",
     "packages": [
         {
             "name": "egeloen/json-builder",

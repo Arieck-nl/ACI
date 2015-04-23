@@ -1,21 +1,264 @@
-body,html {
-    height: 100%;
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/HelvLight%20Regular.ttf');
 }
 
-#overlay{
+@font-face {
+    font-family: 'Helvetica Ultra Light';
+src: url('../fonts/HelveticaLTStd-Light.otf');
+}
+
+
+@font-face {
+    font-family: 'Helvetica Normal';
+    src: url('../fonts/Helvetica.otf');
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Helvetica';
+    -webkit-font-smoothing: antialiased;
+}
+
+#overlay {
     width: 100%;
     height: 100%;
     text-align: center;
     display: table;
+    position: relative;
+}
+
+#links {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+#canvas {
+    z-index: 1;
+    height: 0;
+    width: 0;
+    display: block;
+    position: absolute;
+}
+
+.link-container, .temp {
+    margin: 0;
+    padding: 0;
+    min-width: 100px;
+    z-index: 11;
+    position: absolute;
+    text-transform: lowercase;
+}
+
+.link-id {
+    display: none;
+}
+
+.link{
+    cursor: pointer;
+    /*font-size: 1em;*/
+}
+
+.voting {
+    display: none;
+    position: absolute;
+    width: 100%;
+    min-width: 50px;
+    bottom: -20px;
+    left: 0;
+}
+
+.voting ul {
+    list-style: none;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.voting li {
+    cursor: pointer;
+    font-family: 'Helvetica Ultra Light';
+    display: inline-block;
+    width: 25px;
+}
+
+.upvote {
+    color: green;
+    font-size: 30px;
+}
+
+.downvote {
+    color: red;
+    font-size: 30px;
+}
+
+.report {
+    color: dodgerblue;
+    font-size: 17px;
+    margin-bottom: 2px;
+    padding-top: 9px;
+    vertical-align: top;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.blue {
+    color: dodgerblue;
 }
 
 /* keyword form */
-#keyword-form{
+#keyword-form {
     margin: 0 auto;
-    display: table-cell;
+    top: 50%;
+    left: 50%;
+    margin-left: -100px;
+    margin-top: -25px;
+    position: absolute;
     vertical-align: middle;
+    z-index: 100;
 }
 
-#submit{
+#keyword {
+    text-transform: lowercase;
+    outline: none;
+    border: none;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 1.3em;
+    width: 200px;
+    height: 50px;
+    -webkit-transition: color 1s ease;
+    -moz-transition: color 1s ease;
+    -o-transition: color 1s ease;
+    transition: color 1s ease;
+}
+
+#error-placeholder {
+    position: relative;
+}
+
+.error, .thinking {
+    color: #f52000;
+    bottom: -80px;
+    height: 50px;
+    position: absolute;
+    width: 200px;
+}
+
+.thinking{
     display: none;
+    color: #490584;
+}
+
+#submit {
+    display: none;
+}
+
+#info-wrapper{
+    z-index: 101;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#info-wrapper p{
+    margin: 0;
+}
+
+.info-button{
+    font-size: 22px;
+    cursor: pointer;
+    padding: 15px;
+    position: absolute;
+    right: 0;
+}
+
+/*.info-button:hover{
+    color: grey;
+}*/
+
+.info-text{
+    font-family: Arial;
+    display: none;
+    background-color: rgba(242, 242, 242, 0.75);
+    font-size: 13px;
+    padding: 20px;
+    max-width: 320px;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+}
+
+.info-head{
+    margin-top: 0;
+}
+
+#info-wrapper .voting-info{
+    padding: 0;
+    padding-left: 40px;
+    margin: 5px 0;
+    list-style: none;
+}
+
+.voting-info li{
+    margin-bottom: 10px;
+}
+
+.info-report{
+    font-size: 25px;
+}
+
+.info-upvote{
+    font-size: 30px;
+}
+
+.info-downvote{
+    font-size: 40px;
+}
+
+
+
+.voting-info div{
+    vertical-align: bottom;
+    margin-left: -40px;
+    margin-top: -10px;
+    text-align: center;
+    display: inline-block;
+    width: 40px;
+}
+
+#breadcrumbs{
+    font-family: "Helvetica Ultra Light";
+    padding: 15px;
+    text-transform: lowercase;
+    position: absolute;
+}
+
+.breadcrumb{
+    display: inline-block;
+    padding: 0;
+    font-size: 16px;
+}
+
+.bc-sep{
+    padding: 0;
+    margin: 0 3px;
+    font-size: 12px;
+    vertical-align: middle;
 }

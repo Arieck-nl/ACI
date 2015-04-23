@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>ACI</title>
+    <link rel="stylesheet" type="text/css" href="libs/css/style.css">
+    <script src="libs/js/jquery-2.1.3.js"></script>
+    <script src='libs/js/jcanvas.min.js'></script>
+</head>
+<body>
+<div id="container">
+    <canvas id="canvas"></canvas>
+</div>
+<div id="info-wrapper">
+    <div class="info-button">?</div>
+    <div class="info-text">
+        <h2 class="info-head">What I do</h2>
+
+        <p>I'm a word association robot.
+            I generate word-webs containing words associated with your provided keyword.
+            I get smarter everytime you use (or abuse) me.
+            You can also help me get smarter by providing feedback on each of the words.
+        </p>
+
+        <h2>Providing feedback</h2>
+
+        <p>
+            You can help me get smarter by hovering over a word and clicking one of the icons:
+        </p>
+
+        <ul class="voting-info">
+            <li>
+                <div class="red info-downvote">-</div>
+                Use this button to downvote this association,
+                because you think it doesn't have anything to do with the keyword.
+            </li>
+            <li>
+                <div class="green info-upvote">+</div>
+                Upvote! If you think that this is a strong association,
+                upvote the hell out of it.
+            </li>
+            <li>
+                <div class="blue">X</div>
+                Report this word for the blacklist.
+                Either you think it's not a word or it's not going to be an association for anything.
+            </li>
+        </ul>
+
+        <p>If the word changes to the color of the clicked icon, it means I received your command!</p>
+
+        <h2>Word Surfing</h2>
+
+        <p>
+            You can surf through all the associations by clicking on one of the generated words. Suuuuuurfin' bird (or
+            word, whatever floats your goat).
+        </p>
+    </div>
+</div>
+<div id="overlay">
+    <div id="breadcrumbs"></div>
+    <div id="links"></div>
+    <div id="keyword-form">
+        <form method="post">
+            <input id="keyword" class="input keyword" type="text" placeholder="keyword" contentEditable="true" autofocus
+                   autocomplete="off"/>
+
+            <div id="error-placeholder"></div>
+            <input id="submit" type="submit"/>
+        </form>
+    </div>
+</div>
+<script src="libs/js/config.js"></script>
+<script src="libs/js/feedback.js"></script>
+<script src="libs/js/canvas.js"></script>
+<script src="libs/js/keyword.js"></script>
+<script src="libs/js/init.js"></script>
+</body>
+</html>

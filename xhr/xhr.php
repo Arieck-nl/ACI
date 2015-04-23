@@ -1,73 +1,91 @@
 <?php
 require_once '../init.php';
 
-use Ivory\JsonBuilder\JsonBuilder;
-use Apis\Thesaurus;
-
-$builder = new JsonBuilder();
-$Api_Thesaurus = new Thesaurus();
-
+use ACI\ACI;
 
 $action = $_GET['action'];
-$post = filter_var_array($_POST);
+$post = $_POST;
 
-$links = $Api_Thesaurus->get_link_array($post['keyword']);
-
-echo '<div style="color:#000; background-color:white"><pre>';
-print_r($links);
-echo '</pre>';
-die();
-
-
+$ACI = new ACI($database);
 
 switch ($action) {
     case 'get':
         if (!isset($_POST['keyword'])) {
-            exit;
+            $ACI->json_response(array('error' => 'missing_parameter'), 400);
         }
-        get_links($database, $post, $builder);
+
+//        header("http/1.0 200");
+//        header("Content-Type: application/json; charset=utf-8");
+//        echo file_get_contents('../php/ACI/dummy.json');
+//        exit;
+
+        $ACI->get_json($post['keyword']);
         break;
     case 'feedback':
+        if (!isset($_POST['link_id']) || !isset($_POST['vote']) || !isset($_POST['term'])) {
+            $ACI->json_response(array('error' => 'missing_parameter'), 400);
+        }
+        insert_feedback($ACI, $database, $post);
         break;
-    case 'select':
+    case 'insert':
         break;
 
     default:
 }
 
-function get_links($db, $post, $builder)
+
+/**
+ * insert given feedback
+ *
+ * @param ACI $ACI
+ * @param medoo $db
+ * @param array $post
+ */
+function insert_feedback($ACI, $db, $post)
 {
+    $term_ids = explode('-', $post['link_id']);
 
-    $term = get_term($db, $post['keyword']);
 
-    echo '<div style="color:#000; background-color:white"><pre>';
-    print_r($term);
-    echo '</pre>';
-    die();
+    switch ($post['vote']) {
+        case 'upvote':
+            $update = array('upvotes[+]' => 1);
+            break;
+        case 'downvote':
+            $update = array('downvotes[+]' => 1);
+            break;
+        case 'report':
+            $insert = array(
+                'termID' => (int)$term_ids[1],
+                'term' => $post['term']
+            );
+            $result = $db->insert('aci_possible_blacklist', $insert);
+            break;
+        default:
+            $ACI->json_response(array('error' => 'missing_parameter'), 400);
 
-    if (!$term) {
-        //invoeren in database
+    }
+    if ($post['vote'] != 'report') {
+        $where = array(
+            'AND' => array(
+                'term1' => (int)$term_ids[0],
+                'term2' => (int)$term_ids[1]
+            )
+        );
+        $result = $db->update('aci_link', $update, $where);
+
+        if (!(bool)$result) {
+            $ACI->json_response(array('error' => 'server_error'), 500);
+        }
     }
 
-    buildJson(array('my', 'master', 'is', 'Rick'), $builder);
+
+    $data = array(
+        'status' => 'success',
+        'vote' => $post['vote'],
+        'id' => $post['link_id']
+    );
+
+    $ACI->json_response($data, 200);
 }
 
-function get_term($db, $keyword)
-{
-
-    return $db->get('aci_term', 'term', array('term' => $keyword));
-}
-
-function insert_link($db, $post)
-{
-    insert_term($db, $post);
-
-
-}
-
-function insert_term($db, $term)
-{
-    $id = $db->insert('aci_term', array('termID' => '', 'term' => $term));
-    return $id;
-}
 

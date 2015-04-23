@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'Ivory\\JsonBuilder\\' => array($vendorDir . '/egeloen/json-builder/src'),
     'Apis\\' => array($baseDir . '/php/Apis'),
+    'ACI\\' => array($baseDir . '/php/ACI'),
 );

@@ -31,7 +31,7 @@ $database = new medoo([
     'server' => 'localhost',
     'username' => $database_setup['username'],
     'password' => $database_setup['password'],
-    'charset' => 'utf8',
+    'charset' => 'utf8_unicode_ci',
 
     // optional
     'port' => 3306,

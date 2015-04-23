@@ -88,10 +88,10 @@ abstract class AbstractApi
     protected function get_api_data($url)
     {
         $ch = curl_init();
-        $options = [
+        $options = array(
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true
-        ];
+        );
 
         curl_setopt_array($ch, $options);
         $response = curl_exec($ch);

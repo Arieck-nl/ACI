@@ -8,6 +8,8 @@ var voting =
     '</ul>' +
     '</div>';
 
+var breadcrumbs = [];
+
 function init_keyword() {
     $('#overlay').keypress(function (e) {
         get_value(e)
@@ -19,7 +21,7 @@ function get_value(e) {
         e.preventDefault();
         var input = $('.input:focus');
         if (input.hasClass('keyword')) {
-            $('#breadcrumbs').empty();
+            breadcrumb(null, null, true);
             get_links(input.val());
         }
         else if (input.hasClass('term')) {
@@ -30,8 +32,6 @@ function get_value(e) {
 
 function get_links(keyword) {
     thinking();
-    var height = $('#overlay').height();
-    var width = $('#overlay').width();
 
     $('body').find('.error').remove();
     $('#links').find('.link-container').remove();
@@ -135,7 +135,7 @@ function append_links(keyword, links) {
         }, delay);
 
     });
-    breadcrumb(keyword.content);
+    breadcrumb(keyword.content, links);
 
     //draw_input_lines(links.length, height, width);
 
@@ -207,7 +207,68 @@ function thinking(stop) {
     }
 }
 
-function breadcrumb(keyword){
-    $('#breadcrumbs').append('<div class="breadcrumb">' + keyword + '<span class="bc-sep">></span></div>');
+function breadcrumb(keyword, links, empty) {
+    if (empty) {
+        $('#breadcrumbs').empty();
+        breadcrumbs = [];
+        return;
+    }
+
+    if (keyword == undefined) {
+        return;
+    }
+
+    console.log(keyword);
+    console.log(links);
+
+    breadcrumbs.push({
+        id: breadcrumbs.length,
+        keyword: keyword,
+        links: links
+    });
+
+    var crumb = $('<div class="breadcrumb">' + keyword + '<span class="bc-sep">></span></div>');
+
+
+    crumb.appendTo('#breadcrumbs')
+        .on("click", function () {
+
+            $('body').find('.error').remove();
+            $('#links').find('.link-container').remove();
+            $('#canvas').animate({
+                'height': '0',
+                'width': '0',
+                'top': '50%',
+                'left': '50%'
+            }, 500);
+
+
+            $('#keyword').css('color', 'transparent');
+
+
+            var temp = crumb.clone().css(
+                {
+                    'position': 'absolute',
+                    'top': crumb.offset().top,
+                    'left': crumb.offset().left
+                });
+
+            temp.children('.bc-sep').remove();
+            temp.appendTo('#overlay');
+
+            temp.animate({
+                left: '50%',
+                top: '50%',
+                'fontSize': 18
+            }, 500, function () {
+                temp.remove();
+                $('#keyword').val(keyword).css('color', 'inherit');
+                append_links(keyword, links);
+            });
+        })
+        .animate({
+            'opacity': 1
+        })
+
 }
 

@@ -15,10 +15,10 @@ function draw_gradient_line(x1, y1, x2, y2){
         c2: 'rgb(0, 0, 0)'
     });
 
-    linear = '#fff';
+    linear = 'rgb(110, 110, 110)';
 
     $('#canvas').drawLine({
-        strokeStyle: '#000000',
+        strokeStyle: 'rgb(110, 110, 110)',
         layer: true,
         groups: ['lines'],
         strokeWidth: 0.5,

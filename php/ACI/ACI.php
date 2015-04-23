@@ -35,7 +35,7 @@ class ACI
         // initiate API's
         $this->_apis[] = new Thesaurus();
 //        $this->_apis[] = new Webhose();
-//        $this->_apis[] = new Faroo();
+        $this->_apis[] = new Faroo();
 
     }
 
